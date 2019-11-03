@@ -1,0 +1,19 @@
+{
+    "name": "LCD1802",
+    "version": "1.0.0",
+    "description": "makecode LCD1802 (I2C) extension for micro:bit",
+    "license": "MIT",
+    "dependencies": {
+        "core": "*"
+    },
+    "files": [
+        "README.md",
+        "pxtparts.json",
+        "LCD1802_I2C.ts",
+		"parts/LCD1802_I2C.svg"
+     ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "public": true
+}
