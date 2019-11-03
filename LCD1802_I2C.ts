@@ -9,7 +9,7 @@
  */
 //% weight=20 color=#0fbc11 icon="▀"
 namespace LCD1802 {
-    let i2cAddr: number // 0x3E: JHD1802
+    let i2cAddr: number // 62: JHD1802
     let BK: number      // backlight control
     let RS: number      // command/data
 
@@ -73,12 +73,12 @@ namespace LCD1802 {
 
     /**
      * initial LCD, set I2C address. Address is 0x3E
-     * @param Addr is i2c address for LCD, eg: 0, 39, 63. 0 is auto find address
+     * @param Addr is i2c address for LCD, eg: 0,62. 0 is auto find address
      */
     //% blockId="LCD1802_SET_ADDRESS" block="LCD initialize with Address %addr"
     //% weight=100 blockGap=8
     //% parts=LCD1802_I2C trackArgs=0
-    export function LcdInit(Addr: number) {
+    export function LcdInit(Addr: number = 62) {
         if (Addr == 0) i2cAddr = AutoAddr()
         else i2cAddr = Addr
         BK = 8
