@@ -77,8 +77,8 @@ namespace LCD1802 {
     //% blockId="LCD1802_SET_ADDRESS" block="LCD initialize"
     //% weight=100 blockGap=8
     //% parts=LCD1802_I2C trackArgs=0
-    export function LcdInit() {
-        Addr = 62
+    export function LcdInit() : void {
+        i2cAddr = 62
         BK = 8
         RS = 0
         cmd(0x33)       // set 4bit mode
