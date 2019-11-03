@@ -75,9 +75,8 @@ namespace LCD1802 {
      * initial LCD, set I2C address. Address is 0x3E
      * @param Addr is i2c address for LCD, eg: 0,62. 0 is auto find address
      */
-    //% blockId="LCD1802_SET_ADDRESS" block="LCD initialize with Address %addr"
+    //% blockId="LCD1802_SET_ADDRESS" block="LCD initialize"
     //% weight=100 blockGap=8
-    //% addr.min=62 addr.max=62
     //% parts=LCD1802_I2C trackArgs=0
     export function LcdInit(Addr: number = 62) {
         if (Addr == 0) i2cAddr = AutoAddr()
