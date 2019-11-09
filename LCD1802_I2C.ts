@@ -116,7 +116,7 @@ namespace LCD1802 {
     //% y.min=0 y.max=1
     //% parts=LCD1802_I2C trackArgs=0
     export function ShowNumber(n: number, x: number, y: number): void {
-        let s = n.toString()
+        let s = n.toString() + "       ";
         ShowString(s, x, y)
     }
 
