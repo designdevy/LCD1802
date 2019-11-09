@@ -55,16 +55,28 @@ namespace LCD1802 {
     let  LCD_5x8DOTS: number= 0x00;
 
     
-    let i2cAddr: number // 62: JHD1802
+    let i2cAddr: number = 62; // 62: JHD1802
     let BK: number      // backlight control
     let RS: number      // command/data
 
     // set LCD reg
     function setreg(d: number) {
-        pins.i2cWriteNumber(i2cAddr, d, NumberFormat.Int8LE)
+        let buf : pins.createBuffer(2);
+        buf[0] = 0x80;
+        buf[1] = d;
+        pins.i2cWriteBuffer(i2cAddr, buf, false);
         basic.pause(1)
     }
 
+    // set LCD reg
+    function setdat(d: number) {
+            let buf : pins.createBuffer(2);
+            buf[0] = 0x40;
+            buf[1] = d;
+            pins.i2cWriteBuffer(i2cAddr, buf, false);
+            basic.pause(1)
+    }
+    
     // send data to I2C bus
     function set(d: number) {
         d = d & 0xF0
@@ -76,14 +88,12 @@ namespace LCD1802 {
 
     // send command
     function cmd(d: number) {
-        setreg(0x80);
         setreg(d);
     }
 
     // send data
     function dat(d: number) {
-        setreg(0x40);
-        setreg(d);
+        setdat(d);
     }
 
     
