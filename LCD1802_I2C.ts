@@ -82,9 +82,8 @@ namespace LCD1802 {
 
     // send data
     function dat(d: number) {
-        RS = 1
-        set(d)
-        set(d << 4)
+        setreg(0x40);
+        setreg(d);
     }
 
     
@@ -118,8 +117,7 @@ namespace LCD1802 {
         _displaycontrol = LCD_ENTRYLEFT | LCD_ENTRYSHIFTDECREMENT;
         cmd(LCD_ENTRYMODESET | _displaycontrol);
 
-        
-
+        dat(65);
     }
 
     /**
