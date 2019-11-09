@@ -61,7 +61,7 @@ namespace LCD1802 {
 
     // set LCD reg
     function setreg(d: number) {
-        let buf : pins.createBuffer(2);
+        let buf = pins.createBuffer(2);
         buf[0] = 0x80;
         buf[1] = d;
         pins.i2cWriteBuffer(i2cAddr, buf, false);
@@ -70,7 +70,7 @@ namespace LCD1802 {
 
     // set LCD reg
     function setdat(d: number) {
-            let buf : pins.createBuffer(2);
+            let buf = pins.createBuffer(2);
             buf[0] = 0x40;
             buf[1] = d;
             pins.i2cWriteBuffer(i2cAddr, buf, false);
