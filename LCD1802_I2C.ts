@@ -9,6 +9,52 @@
  */
 //% weight=20 color=#0fbc11 icon="▀"
 namespace LCD1802 {
+    // commands
+    let  lines: number = 2;
+    let  rows: number = 16;
+
+    let _displayfunction : number;
+    let _displaycontrol: number;
+    let _displaymode: number;;
+  
+    let  LCD_CLEARDISPLAY: number= 0x01;
+    let  LCD_RETURNHOME: number= 0x02;
+    let  LCD_ENTRYMODESET: number= 0x04;
+    let  LCD_DISPLAYCONTROL: number= 0x08;
+    let  LCD_CURSORSHIFT: number= 0x10;
+    let  LCD_FUNCTIONSET: number= 0x20;
+    let  LCD_SETCGRAMADDR: number= 0x40;
+    let  LCD_SETDDRAMADDR: number= 0x80;
+
+    // flags for display entry mode
+    let  LCD_ENTRYRIGHT: number= 0x00;
+    let  LCD_ENTRYLEFT: number= 0x02;
+    let  LCD_ENTRYSHIFTINCREMENT: number= 0x01;
+    let  LCD_ENTRYSHIFTDECREMENT: number= 0x00;
+
+    // flags for display on/off control
+    let  LCD_DISPLAYON: number= 0x04;
+    let  LCD_DISPLAYOFF: number= 0x00;
+    let  LCD_CURSORON: number= 0x02;
+    let  LCD_CURSOROFF: number= 0x00;
+    let  LCD_BLINKON: number= 0x01;
+    let  LCD_BLINKOFF: number= 0x00;
+
+    // flags for display/cursor shift
+    let  LCD_DISPLAYMOVE: number= 0x08;
+    let  LCD_CURSORMOVE: number= 0x00;
+    let  LCD_MOVERIGHT: number= 0x04;
+    let  LCD_MOVELEFT: number= 0x00;
+
+    // flags for function set
+    let  LCD_8BITMODE: number= 0x10;
+    let  LCD_4BITMODE: number= 0x00;
+    let  LCD_2LINE: number= 0x08;
+    let  LCD_1LINE: number= 0x00;
+    let  LCD_5x10DOTS: number= 0x04;
+    let  LCD_5x8DOTS: number= 0x00;
+
+    
     let i2cAddr: number // 62: JHD1802
     let BK: number      // backlight control
     let RS: number      // command/data
@@ -30,9 +76,8 @@ namespace LCD1802 {
 
     // send command
     function cmd(d: number) {
-        RS = 0
-        set(d)
-        set(d << 4)
+        setreg(0x80);
+        setreg(d);
     }
 
     // send data
@@ -42,35 +87,7 @@ namespace LCD1802 {
         set(d << 4)
     }
 
-    // auto get LCD address
-    function AutoAddr() {
-        let k = true
-        let addr = 0x20
-        let d1 = 0, d2 = 0
-        while (k && (addr < 0x28)) {
-            pins.i2cWriteNumber(addr, -1, NumberFormat.Int32LE)
-            d1 = pins.i2cReadNumber(addr, NumberFormat.Int8LE) % 16
-            pins.i2cWriteNumber(addr, 0, NumberFormat.Int16LE)
-            d2 = pins.i2cReadNumber(addr, NumberFormat.Int8LE)
-            if ((d1 == 7) && (d2 == 0)) k = false
-            else addr += 1
-        }
-        if (!k) return addr
-
-        addr = 0x38
-        while (k && (addr < 0x40)) {
-            pins.i2cWriteNumber(addr, -1, NumberFormat.Int32LE)
-            d1 = pins.i2cReadNumber(addr, NumberFormat.Int8LE) % 16
-            pins.i2cWriteNumber(addr, 0, NumberFormat.Int16LE)
-            d2 = pins.i2cReadNumber(addr, NumberFormat.Int8LE)
-            if ((d1 == 7) && (d2 == 0)) k = false
-            else addr += 1
-        }
-        if (!k) return addr
-        else return 0
-
-    }
-
+    
     /**
      * initial LCD, set I2C address. Address is 0x3E
      */
@@ -82,16 +99,12 @@ namespace LCD1802 {
         i2cAddr = address
         BK = 8
         RS = 0
-        cmd(0x33)       // set 4bit mode
-        basic.pause(5)
-        set(0x30)
-        basic.pause(5)
-        set(0x20)
-        basic.pause(5)
-        cmd(0x28)       // set mode
-        cmd(0x0C)
-        cmd(0x06)
-        cmd(0x01)       // clear
+        
+        _displayfunction = LCD_2LINE;
+        basic.pause(50);
+        cmd(LCD_FUNCTIONSET | _displayfunction);
+        basic.pause(5);
+
     }
 
     /**
