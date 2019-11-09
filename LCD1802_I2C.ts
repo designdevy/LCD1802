@@ -53,14 +53,11 @@ namespace LCD1802 {
     let  LCD_1LINE: number= 0x00;
     let  LCD_5x10DOTS: number= 0x04;
     let  LCD_5x8DOTS: number= 0x00;
-
-    
+   
     let i2cAddr: number = 62; // 62: JHD1802
-    let BK: number      // backlight control
-    let RS: number      // command/data
-
-    // set LCD reg
-    function setreg(d: number) {
+     
+    // send command
+    function cmd(d: number) {
         let buf = pins.createBuffer(2);
         buf[0] = 0x80;
         buf[1] = d;
@@ -68,33 +65,14 @@ namespace LCD1802 {
         basic.pause(1);
     }
 
-    // set LCD reg
-    function setdat(d: number) {
-            let buf = pins.createBuffer(2);
-            buf[0] = 0x40;
-            buf[1] = d;
-            pins.i2cWriteBuffer(i2cAddr, buf, false);
-            basic.pause(1);
-    }
-    
-    // send data to I2C bus
-    function set(d: number) {
-        d = d & 0xF0
-        d = d + BK + RS
-        setreg(d)
-        setreg(d + 4)
-        setreg(d)
-    }
-
-    // send command
-    function cmd(d: number) {
-        setreg(d);
-    }
-
     // send data
     function dat(d: number) {
-        setdat(d);
-    }
+        let buf = pins.createBuffer(2);
+        buf[0] = 0x40;
+        buf[1] = d;
+        pins.i2cWriteBuffer(i2cAddr, buf, false);
+        basic.pause(1);
+}
 
     
     /**
@@ -175,7 +153,7 @@ namespace LCD1802 {
     //% weight=81 blockGap=8
     //% parts=LCD1802_I2C trackArgs=0
     export function on(): void {
-        cmd(0x0C)
+        cmd(LCD_DISPLAYCONTROL | LCD_DISPLAYON);
     }
 
     /**
@@ -185,7 +163,7 @@ namespace LCD1802 {
     //% weight=80 blockGap=8
     //% parts=LCD1802_I2C trackArgs=0
     export function off(): void {
-        cmd(0x08)
+        cmd(LCD_DISPLAYCONTROL | LCD_DISPLAYOFF);
     }
 
     /**
@@ -195,7 +173,7 @@ namespace LCD1802 {
     //% weight=85 blockGap=8
     //% parts=LCD1802_I2C trackArgs=0
     export function clear(): void {
-        cmd(0x01)
+        cmd(LCD_CLEARDISPLAY);
     }
 
     /**
@@ -205,7 +183,6 @@ namespace LCD1802 {
     //% weight=71 blockGap=8
     //% parts=LCD1802_I2C trackArgs=0
     export function BacklightOn(): void {
-        BK = 8
         cmd(0)
     }
 
@@ -216,7 +193,6 @@ namespace LCD1802 {
     //% weight=70 blockGap=8
     //% parts=LCD1802_I2C trackArgs=0
     export function BacklightOff(): void {
-        BK = 0
         cmd(0)
     }
 
