@@ -106,8 +106,6 @@ namespace LCD1802 {
     //% parts=LCD1802_I2C trackArgs=0
     export function LcdInit(address : number) : void {
         i2cAddr = address
-        BK = 8
-        RS = 0
         
         _displayfunction = LCD_2LINE;
         basic.pause(50);
@@ -126,8 +124,6 @@ namespace LCD1802 {
         basic.pause(2);
         _displaycontrol = LCD_ENTRYLEFT | LCD_ENTRYSHIFTDECREMENT;
         cmd(LCD_ENTRYMODESET | _displaycontrol);
-
-        dat(65);
     }
 
     /**
@@ -160,13 +156,13 @@ namespace LCD1802 {
     export function ShowString(s: string, x: number, y: number): void {
         let a: number
 
-        if (y > 0)
+        /*if (y > 0)
             a = 0xC0
         else
             a = 0x80
         a += x
         cmd(a)
-
+*/
         for (let i = 0; i < s.length; i++) {
             dat(s.charCodeAt(i))
         }
