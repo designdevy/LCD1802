@@ -1,6 +1,6 @@
 {
     "name": "LCD1802",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "makecode LCD1802 (I2C) extension for micro:bit",
     "license": "MIT",
     "dependencies": {

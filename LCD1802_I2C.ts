@@ -104,6 +104,21 @@ namespace LCD1802 {
         basic.pause(50);
         cmd(LCD_FUNCTIONSET | _displayfunction);
         basic.pause(5);
+        cmd(LCD_FUNCTIONSET | _displayfunction);
+        basic.pause(1);
+        cmd(LCD_FUNCTIONSET | _displayfunction);
+        basic.pause(1);
+        cmd(LCD_FUNCTIONSET | _displayfunction);
+        basic.pause(1);
+        _displaycontrol = LCD_DISPLAYON | LCD_CURSOROFF | LCD_BLINKOFF;
+        cmd(LCD_DISPLAYCONTROL | _displaycontrol);
+        basic.pause(5);
+        cmd(LCD_CLEARDISPLAY);
+        basic.pause(2);
+        _displaycontrol = LCD_ENTRYLEFT | LCD_ENTRYSHIFTDECREMENT;
+        cmd(LCD_ENTRYMODESET | _displaycontrol);
+
+        
 
     }
 
