@@ -78,13 +78,11 @@ namespace LCD1802 {
     /**
      * initial LCD, set I2C address. Address is 0x3E
      */
-    //% blockId="LCD1802_SET_ADDRESS" block="LCD initialize | %address"
+    //% blockId="LCD1802_SET_ADDRESS" block="LCD1802 initialize"
     //% address.min=60 address.max=70 address.defl=62 
     //% weight=100 blockGap=8
     //% parts=LCD1802_I2C trackArgs=0
-    export function LcdInit(address : number) : void {
-        i2cAddr = address
-        
+    export function LcdInit(): void {   
         _displayfunction = LCD_2LINE;
         basic.pause(50);
         cmd(LCD_FUNCTIONSET | _displayfunction);
@@ -164,16 +162,6 @@ namespace LCD1802 {
     //% parts=LCD1802_I2C trackArgs=0
     export function off(): void {
         cmd(LCD_DISPLAYCONTROL | LCD_DISPLAYOFF);
-    }
-
-    /**
-     * turn off LCD backlight
-     */
-    //% blockId="LCD1802_BACKLIGHT_OFF" block="turn off backlight"
-    //% weight=70 blockGap=8
-    //% parts=LCD1802_I2C trackArgs=0
-    export function BacklightOff(): void {
-        cmd(0)
     }
 
     /**
