@@ -156,13 +156,13 @@ namespace LCD1802 {
     export function ShowString(s: string, x: number, y: number): void {
         let a: number
 
-        /*if (y > 0)
+        if (y > 0)
             a = 0xC0
         else
             a = 0x80
         a += x
-        cmd(a)
-*/
+        cmd(a);
+
         for (let i = 0; i < s.length; i++) {
             dat(s.charCodeAt(i))
         }
