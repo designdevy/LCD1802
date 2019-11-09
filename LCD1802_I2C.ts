@@ -75,10 +75,11 @@ namespace LCD1802 {
      * initial LCD, set I2C address. Address is 0x3E
      */
     //% blockId="LCD1802_SET_ADDRESS" block="LCD initialize"
+    //% address.min=60 address.max=70 address.defl=62 
     //% weight=100 blockGap=8
     //% parts=LCD1802_I2C trackArgs=0
-    export function LcdInit() : void {
-        i2cAddr = 62
+    export function LcdInit(address : number) : void {
+        i2cAddr = address
         BK = 8
         RS = 0
         cmd(0x33)       // set 4bit mode
