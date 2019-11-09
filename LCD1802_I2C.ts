@@ -65,7 +65,7 @@ namespace LCD1802 {
         buf[0] = 0x80;
         buf[1] = d;
         pins.i2cWriteBuffer(i2cAddr, buf, false);
-        basic.pause(1)
+        basic.pause(1);
     }
 
     // set LCD reg
@@ -74,7 +74,7 @@ namespace LCD1802 {
             buf[0] = 0x40;
             buf[1] = d;
             pins.i2cWriteBuffer(i2cAddr, buf, false);
-            basic.pause(1)
+            basic.pause(1);
     }
     
     // send data to I2C bus
