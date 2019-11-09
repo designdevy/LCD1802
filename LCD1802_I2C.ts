@@ -167,26 +167,6 @@ namespace LCD1802 {
     }
 
     /**
-     * clear all display content
-     */
-    //% blockId="LCD1802_CLEAR" block="clear LCD"
-    //% weight=85 blockGap=8
-    //% parts=LCD1802_I2C trackArgs=0
-    export function clear(): void {
-        cmd(LCD_CLEARDISPLAY);
-    }
-
-    /**
-     * turn on LCD backlight
-     */
-    //% blockId="LCD1802_BACKLIGHT_ON" block="turn on backlight"
-    //% weight=71 blockGap=8
-    //% parts=LCD1802_I2C trackArgs=0
-    export function BacklightOn(): void {
-        cmd(0)
-    }
-
-    /**
      * turn off LCD backlight
      */
     //% blockId="LCD1802_BACKLIGHT_OFF" block="turn off backlight"
