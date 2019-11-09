@@ -127,7 +127,7 @@ namespace LCD1802 {
     }
 
     /**
-     * show a number in LCD at given position
+     * show a number in LCD at given positions
      * @param n is number will be show, eg: 10, 100, 200
      * @param x is LCD column position, eg: 0
      * @param y is LCD row position, eg: 0
