@@ -74,7 +74,7 @@ namespace LCD1802 {
     /**
      * initial LCD, set I2C address. Address is 0x3E
      */
-    //% blockId="LCD1802_SET_ADDRESS" block="LCD initialize"
+    //% blockId="LCD1802_SET_ADDRESS" block="LCD initialize" | %address
     //% address.min=60 address.max=70 address.defl=62 
     //% weight=100 blockGap=8
     //% parts=LCD1802_I2C trackArgs=0
